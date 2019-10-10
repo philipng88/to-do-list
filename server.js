@@ -1,12 +1,15 @@
 require('dotenv').config()
-let express = require('express')
-let mongodb = require('mongodb')
-let sanitizeHTML = require('sanitize-html')
+const express = require('express')
+const mongodb = require('mongodb')
+const sanitizeHTML = require('sanitize-html')
+const favicon = require('serve-favicon')
+const path = require('path')
 
-let app = express()
+const app = express()
 let db
 
 app.use(express.static('public'))
+app.use(favicon(path.join(__dirname, 'public', 'favicon.png')))
 
 mongodb.connect(process.env.CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
   db = client.db()
@@ -16,7 +19,7 @@ mongodb.connect(process.env.CONNECTION_STRING, {useNewUrlParser: true, useUnifie
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   db.collection('items').find().toArray((err, items) => {
     res.send(`<!DOCTYPE html>
   <html>
