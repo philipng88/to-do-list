@@ -15,7 +15,7 @@
     "express": "^4.16.4",
     "mongodb": "^3.2.6",
     "nodemon": "^1.18.10",
-    "sanitize-html": "^1.20.1",
+    "sanitize-html": "^2.3.2",
     "serve-favicon": "^2.5.0"
   }
 }
